@@ -5,14 +5,17 @@ import { StyleSheetServer } from 'aphrodite/no-important';
 import ampPage from './ampPage';
 
 // eslint-disable-next-line import/prefer-default-export
-export const renderReactAmpWithAphrodite = (name, component, ampOptions) => hypernova({
+export const renderReactAmpWithAphrodite = (name, component, ampOptions = {}) => hypernova({
   server() {
     return (props) => {
       const { html, css } = StyleSheetServer.renderStatic(() => (
         ReactDOMServer.renderToString(React.createElement(component, props))
       ));
 
-      const style = `<style amp-custom>\n${css.content}\n</style>`;
+      const prependCSS = ampOptions.prependCSS || '';
+      const appendCSS = ampOptions.appendCSS || '';
+      const style = `<style amp-custom>\n${prependCSS}${css.content}${appendCSS}\n</style>`;
+
       return ampPage(html, style, ampOptions);
     };
   },
