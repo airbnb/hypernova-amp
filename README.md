@@ -22,3 +22,12 @@ export default renderReactAmpWithAphrodite(
   MyComponent,
 );
 ```
+
+## Publishing a new release
+
+- Add entry to CHANGELOG.md
+- Make a commit, directly onto master, that does nothing but adds/updates the changelog and bumps package.json, with a commit message of “vX.Y.Z"
+- `git tag vX.Y.Z`
+- `git push --tags`
+- wait for travis to pass
+- `npm install && npm test && npm publish`
