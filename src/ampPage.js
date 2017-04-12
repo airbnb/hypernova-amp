@@ -1,4 +1,5 @@
 import ampScripts from './ampScripts';
+import ampState from './ampState';
 
 export default (body, style, options = {}) =>
 `<!doctype html>
@@ -25,6 +26,7 @@ export default (body, style, options = {}) =>
     ${style}
   </head>
   <body>
+  ${ampState(options.ampState)}
   ${body}
   </body>
 </html>

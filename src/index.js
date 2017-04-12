@@ -16,7 +16,19 @@ export const renderReactAmpWithAphrodite = (name, component, ampOptions = {}) =>
       const appendCSS = ampOptions.appendCSS || '';
       const style = `<style amp-custom>\n${prependCSS}${css.content}${appendCSS}\n</style>`;
 
-      return ampPage(html, style, ampOptions);
+      let result = ampPage(html, style, ampOptions);
+
+      if (ampOptions.enableAmpBind) {
+        // transform: amp-bind-attribute-name=   -->   [attribute-name]=
+        result = result.replace(/amp-bind-([\w-]+)=/g, '[$1]=');
+      }
+
+      if (ampOptions.enableRemoveIs) {
+        // remove: is="true"
+        result = result.replace(/is="true"/g, '');
+      }
+
+      return result;
     };
   },
 });
