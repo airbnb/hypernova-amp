@@ -1,5 +1,5 @@
 import ampScripts from './ampScripts';
-import ampState from './ampState';
+import ampJson from './ampJson';
 
 export default (body, style, options = {}) =>
 `<!doctype html>
@@ -7,6 +7,7 @@ export default (body, style, options = {}) =>
   <head>
     <meta charset="utf-8">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     ${ampScripts(options.scripts)
     }<title>${options.title}</title>
     <link rel="canonical" href="${options.canonicalUrl}" />
@@ -26,7 +27,8 @@ export default (body, style, options = {}) =>
     ${style}
   </head>
   <body>
-  ${ampState(options.ampState)}
+  ${ampJson(options.ampState, 'amp-state')}
+  ${ampJson(options.ampAnalytics, 'amp-analytics')}
   ${body}
   </body>
 </html>
