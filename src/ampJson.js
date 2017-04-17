@@ -1,10 +1,10 @@
-export default function ampState(data) {
-  if (!data) return '';
+export default function ampJson(data, component) {
+  if (!data || !component) return '';
   return Object.entries(data).map(([key, value]) => (
-    `<amp-state id="${key}">
+    `<${component} id="${key}">
       <script type="application/json">
       ${JSON.stringify(value)}
       </script>
-    </amp-state>`
+    </${component}>`
   )).join('\n');
 }

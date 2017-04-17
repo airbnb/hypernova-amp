@@ -1,12 +1,12 @@
 import { assert } from 'chai';
-import ampState from '../lib/ampState';
+import ampJson from '../lib/ampJson';
 
-describe('ampState', () => {
+describe('ampJson', () => {
   it('returns empty string when first argument is falsy or empty object', () => {
-    assert.isNotOk(ampState(false));
-    assert.isNotOk(ampState(null));
-    assert.isNotOk(ampState(undefined));
-    assert.isNotOk(ampState({}));
+    assert.isNotOk(ampJson(false, 'amp-state'));
+    assert.isNotOk(ampJson(null, 'amp-state'));
+    assert.isNotOk(ampJson(undefined, 'amp-state'));
+    assert.isNotOk(ampJson({}, 'amp-state'));
   });
 
   it('injects state', () => {
@@ -20,7 +20,7 @@ describe('ampState', () => {
         four: 222,
       },
     };
-    const result = ampState(STATE);
+    const result = ampJson(STATE, 'amp-state');
 
     assert.isString(result);
     assert.ok(result.includes(JSON.stringify(STATE.foo)));
