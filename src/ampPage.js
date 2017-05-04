@@ -1,6 +1,11 @@
 import ampScripts from './ampScripts';
 import ampJson from './ampJson';
 
+function ampExperimentToken(token) {
+  if (!token) return '';
+  return `<meta name="amp-experiment-token" content="${token}">\n`;
+}
+
 export default (body, style, options = {}) =>
 `<!doctype html>
 <html amp lang="en">
@@ -9,6 +14,7 @@ export default (body, style, options = {}) =>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
     ${ampScripts(options.scripts)
+    }${ampExperimentToken(options.ampExperimentToken)
     }<title>${options.title}</title>
     <link rel="canonical" href="${options.canonicalUrl}" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">

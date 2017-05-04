@@ -11,6 +11,7 @@ describe('ampPage', () => {
       schemaType: 'AIOJVKJZVDV',
       schemaHeadline: 'ASLDIFJ2OIEFAD',
       schemaDatePublished: 'AOCIMOAISDJF',
+      ampExperimentToken: 'kll2j3lkj23lj',
     };
     const result = ampPage(BODY, STYLE, OPTIONS);
 
@@ -22,5 +23,6 @@ describe('ampPage', () => {
     assert.ok(result.includes(OPTIONS.schemaType));
     assert.ok(result.includes(OPTIONS.schemaHeadline));
     assert.ok(result.includes(OPTIONS.schemaDatePublished));
+    assert.ok(result.includes(OPTIONS.ampExperimentToken));
   });
 });
