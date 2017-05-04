@@ -35,6 +35,7 @@ export default (body, style, options = {}) =>
   <body>
   ${ampJson(options.ampState, 'amp-state')}
   ${ampJson(options.ampAnalytics, 'amp-analytics')}
+  ${ampJson(options.ampGoogleAnalytics, 'amp-analytics', 'googleanalytics')}
   ${body}
   </body>
 </html>
