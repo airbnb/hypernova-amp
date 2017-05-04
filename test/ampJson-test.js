@@ -26,4 +26,26 @@ describe('ampJson', () => {
     assert.ok(result.includes(JSON.stringify(STATE.foo)));
     assert.ok(result.includes(JSON.stringify(STATE.bar)));
   });
+
+  it('injects attributes', () => {
+    const STATE = {
+      foo: {
+        one: 'aaa',
+        two: 111,
+      },
+      bar: {
+        three: 'bbb',
+        four: 222,
+      },
+    };
+
+    const result = ampJson(STATE, 'amp-analytics', 'googleanalytics');
+    assert.ok(result.includes('type="googleanalytics"'));
+  });
+
+  it('does not inject bad content', () => {
+    const maliciousScript = '<script>malicious script</script>';
+    const result = ampJson({}, 'amp-analytics', maliciousScript);
+    assert.ok(!result.includes(maliciousScript));
+  })
 });
