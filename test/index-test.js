@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import AphroditeComponent from './components/AphroditeComponent';
 import { renderReactAmpWithAphrodite } from '../';
 
-describe('aphrodite css rendering', () => {
+describe('index', () => {
   describe('without options', () => {
     let result;
     beforeEach(() => {
@@ -14,7 +14,6 @@ describe('aphrodite css rendering', () => {
 
     it('the markup looks good', () => {
       assert.isString(result);
-
       assert.ok(/html amp/.test(result));
       assert.ok(/style amp-custom/.test(result));
     });
