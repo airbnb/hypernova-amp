@@ -3,17 +3,23 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2017-05-04
+
+### Changed
+
+- #6 [AMP] Add Google Analytics support and sanitize inputs
+
 ## [1.4.0] - 2017-05-04
 
 ### Changed
 
-- Add 'ampExperimentToken' option
+- #5 Add 'ampExperimentToken' option
 
 ## [1.3.0] - 2017-04-17
 
 ### Changed
 
-- Add 'ampAnalytics' option
+- #3 Add 'ampAnalytics' option
 
 ## [1.2.0] - 2017-04-12
 
