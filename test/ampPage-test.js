@@ -2,27 +2,43 @@ import { assert } from 'chai';
 import ampPage from '../lib/ampPage';
 
 describe('ampPage', () => {
-  it('injects body, style, and options', () => {
-    const BODY = 'XXXBODYXXX';
-    const STYLE = 'XXXSTYLEXXX';
-    const OPTIONS = {
+  let body;
+  let style;
+  let options;
+
+  beforeEach(() => {
+    body = 'XXXBODYXXX';
+    style = 'XXXSTYLEXXX';
+    options = {
       title: 'LSCLIZJOIWE',
       canonicalUrl: 'OINALKSDMC',
-      schemaType: 'AIOJVKJZVDV',
-      schemaHeadline: 'ASLDIFJ2OIEFAD',
-      schemaDatePublished: 'AOCIMOAISDJF',
       ampExperimentToken: 'kll2j3lkj23lj',
+      jsonSchema: {
+        '@context': 'http://schema.org',
+        '@type': 'AIOJVKJZVDV',
+        headline: 'ASLDIFJ2OIEFAD',
+        datePublished: 'AOCIMOAISDJF',
+      },
     };
-    const result = ampPage(BODY, STYLE, OPTIONS);
+  });
+
+  it('injects body, style, and options', () => {
+    const result = ampPage(body, style, options);
 
     assert.isString(result);
-    assert.ok(result.includes(BODY));
-    assert.ok(result.includes(STYLE));
-    assert.ok(result.includes(OPTIONS.title));
-    assert.ok(result.includes(OPTIONS.canonicalUrl));
-    assert.ok(result.includes(OPTIONS.schemaType));
-    assert.ok(result.includes(OPTIONS.schemaHeadline));
-    assert.ok(result.includes(OPTIONS.schemaDatePublished));
-    assert.ok(result.includes(OPTIONS.ampExperimentToken));
+    assert.include(result, body, 'result includes body');
+    assert.include(result, style, 'result includes style');
+    assert.include(result, options.title, 'result includes title');
+    assert.include(result, options.canonicalUrl, 'result includes canonicalUrl');
+    assert.include(result, options.jsonSchema['@context'], 'result includes @context');
+    assert.include(result, options.jsonSchema['@type'], 'result includes @type');
+    assert.include(result, options.jsonSchema.headline, 'result includes headline');
+    assert.include(result, options.jsonSchema.datePublished, 'result includes datePublished');
+    assert.include(result, options.ampExperimentToken, 'result includes ampExperimentToken');
+  });
+
+  it('warns about missing JSON Schema', () => {
+    const result = ampPage(body, style, { ...options, jsonSchema: undefined });
+    assert.include(result, '<!-- WARNING: Missing JSON Schema -->');
   });
 });

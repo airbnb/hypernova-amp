@@ -1,6 +1,6 @@
 import ampScripts from './ampScripts';
 import ampJson from './ampJson';
-import { sanitizeMarkup, sanitizeAttrVal, sanitizeCSS } from './sanitize';
+import { sanitizeMarkup, sanitizeAttrVal, sanitizeCSS, sanitizeJSON } from './sanitize';
 
 function ampExperimentToken(token) {
   if (!token) return '';
@@ -19,17 +19,9 @@ export default (body, style, options = {}) =>
     }<title>${sanitizeMarkup(options.title)}</title>
     <link rel="canonical" href="${sanitizeAttrVal(options.canonicalUrl)}" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "${sanitizeMarkup(options.schemaType)}",
-        "headline": "${sanitizeMarkup(options.schemaHeadline)}",
-        "datePublished": "${sanitizeMarkup(options.schemaDatePublished)}",
-        "image": [
-          "${sanitizeMarkup(options.schemaImage)}"
-        ]
-      }
-    </script>
+    ${options.jsonSchema ?
+      `<script type="application/ld+json">${sanitizeJSON(options.jsonSchema)}</script>` :
+      '<!-- WARNING: Missing JSON Schema -->'}
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     ${sanitizeCSS(style)}
   </head>
