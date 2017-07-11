@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.0] - 2017-07-11
+
+### Changed
+
+- Add `customTemplate` option for ampScripts
+- Add createElement function for creating elements with boolean and optional attributes
+
 ## [2.1.0] - 2017-06-22
 
 ### Changed
