@@ -1,6 +1,7 @@
 import { assert } from 'chai';
 import {
   sanitizeElementName,
+  sanitizeAttr,
   sanitizeAttrVal,
   sanitizeJSON,
   sanitizeCSS,
@@ -11,6 +12,11 @@ describe('sanitize prevents XSS', () => {
   it('sanitizeElementName', () => {
     const maliciousScript = '<script>malicious script</script>';
     assert.notOk(sanitizeElementName(maliciousScript).includes(maliciousScript));
+  });
+
+  it('sanitizeAttr', () => {
+    const maliciousScript = '<script>malicious script</script>';
+    assert.notOk(sanitizeAttr(maliciousScript).includes(maliciousScript));
   });
 
   it('sanitizeAttrVal', () => {
