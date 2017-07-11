@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import ampScripts from '../lib/ampScripts';
 
 describe('ampScripts', () => {
-  it('returns empty string when first argument is falsy', () => {
+  it('returns empty string when first argument is falsy or empty array', () => {
     assert.isNotOk(ampScripts(false));
     assert.isNotOk(ampScripts(null));
     assert.isNotOk(ampScripts(undefined));
@@ -23,9 +23,19 @@ describe('ampScripts', () => {
     const result = ampScripts(SCRIPTS);
 
     assert.isString(result);
-    assert.ok(result.includes(SCRIPTS[0].customElement));
-    assert.ok(result.includes(SCRIPTS[1].customElement));
-    assert.ok(result.includes(SCRIPTS[0].src));
-    assert.ok(result.includes(SCRIPTS[1].src));
+    assert.include(result, SCRIPTS[0].customElement);
+    assert.include(result, SCRIPTS[1].customElement);
+    assert.include(result, SCRIPTS[0].src);
+    assert.include(result, SCRIPTS[1].src);
+  });
+
+  it('supports customTemplate', () => {
+    assert.equal(
+      ampScripts([{
+        customTemplate: 'my-template',
+        src: 'my.src',
+      }]),
+      '<script async custom-template="my-template" src="my.src"></script>\n',
+    );
   });
 });
