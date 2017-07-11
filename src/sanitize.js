@@ -7,6 +7,7 @@ const clean = dirty => sanitizeHtml(dirty, {
 
 export const sanitizeElementName = clean;
 export const sanitizeAttrVal = clean;
+export const sanitizeAttr = clean;
 export const sanitizeJSON = dirty => JSON.stringify(dirty).replace(/</g, '\\u003c');
 export const sanitizeMarkup = clean;
 
