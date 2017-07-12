@@ -20,8 +20,87 @@ import MyComponent from './src/MyComponent.jsx';
 export default renderReactAmpWithAphrodite(
   'MyComponent.hypernova.js', // this file's name (or really any unique name)
   MyComponent,
+  {/* Options */},
 );
 ```
+
+
+## Options
+
+### `prependCSS` (string)
+Inserts css before the generated CSS.
+
+### `appendCSS` (string)
+Inserts css after the generated CSS.
+
+### `enableAmpBind` (bool)
+Set to `true` to enable [amp-bind](https://www.ampproject.org/docs/reference/components/amp-bind).
+Default: `false`.
+This will transform any attribute named `amp-bind-x` into an attribute named `[x]`. This is necessary
+because react does not support `[x]` prop even in conjunction with `is` (see next section).
+
+### `enableRemoveIs` (bool)
+Utilizes regex to remove `is` attribute. React has an undocumented `is` prop that when added to an element,
+prevents React from transforming/filtering props that you add to the element. Any prop that you
+add will be added as an attribute with the same name. For example, adding a `class` 
+prop to a `<div>` will add a `class` attribute to the `<div>`. This also means that adding a 
+`className` prop will not do what you normally would expect it to do. You'll want to add the `is`
+prop when using `amp-bind-class` together with `class`, for example. However, the problem arises
+where the `is` attribute is also added to the element which causes an AMP validation error. Enabling
+the `enableRemoveIs` option will remove the `is` attribute and thus eliminate the validation error.
+
+Here's an example which utilizes `enableAmpBind` and `enableRemoveIs`:
+
+```
+<div
+  is
+  amp-bind-class={`showThing ? '${thingClass} ${thingOpenClass}' : '${thingClass}'`}
+  class={ampSearchBarClass}
+>
+  ...
+</div>
+```
+
+... elsewhere you might have a button like this:
+
+```
+<div
+  is
+  role="button"
+  on="tap:AMP.setState({ showThing: !showThing })"
+  tabindex="0"
+>
+  Toggle Thing Component
+</div>
+ ```
+
+### `scripts` (array)
+Each element of the array is an object with any of the following values:
+- `scripts.customElement` (string)
+- `scripts.customTemplate` (string)
+- `scripts.src` (string): 
+
+### `ampExperimentToken` (string)
+Adds `amp-experiment-token` meta tag with token.
+
+### `title` (string)
+Page title
+
+### `canonicalUrl` (string)
+Adds meta tag with canonical URL.
+
+### `jsonSchema` (object)
+Adds json schema meta tag.
+
+### `ampState` (object)
+Adds [amp-state tag](https://www.ampproject.org/docs/reference/components/amp-bind#initializing-state-with-amp-state).
+
+### `ampAnalytics` (object)
+Adds [amp-analytics tag](https://developers.google.com/analytics/devguides/collection/amp-analytics/)
+
+### `ampGoogleAnalytics` (object)
+Adds [amp-analytics (google type) tag](https://developers.google.com/analytics/devguides/collection/amp-analytics/)
+
 
 ## Publishing a new release
 
