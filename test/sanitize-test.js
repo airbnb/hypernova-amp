@@ -24,9 +24,27 @@ describe('sanitize prevents XSS', () => {
     assert.notOk(sanitizeAttrVal(maliciousScript).includes(maliciousScript));
   });
 
-  it('sanitizeJSON', () => {
-    const maliciousScript = '<script>malicious script</script>';
-    assert.notOk(sanitizeJSON(maliciousScript).includes(maliciousScript));
+  describe('sanitizeJSON', () => {
+    it('santizes', () => {
+      const maliciousScript = '<script>malicious script</script>';
+      assert.notOk(sanitizeJSON(maliciousScript).includes(maliciousScript));
+    });
+
+    it('handles undefined', () => {
+      assert.equal(sanitizeJSON(undefined), undefined);
+    });
+
+    it('handles null', () => {
+      assert.equal(sanitizeJSON(null), 'null');
+    });
+
+    it('handles false', () => {
+      assert.equal(sanitizeJSON(false), 'false');
+    });
+
+    it('handles 0', () => {
+      assert.equal(sanitizeJSON(0), '0');
+    });
   });
 
   it('sanitizeCSS', () => {
