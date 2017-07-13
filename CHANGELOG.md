@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2017-07-13
+
+### Changed
+
+- Support unlimited JSON Schema object [#9](https://github.com/airbnb/hypernova-amp/pull/9)
+
 ## [2.2.0] - 2017-07-11
 
 ### Changed
