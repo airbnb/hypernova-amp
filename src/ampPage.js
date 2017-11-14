@@ -1,5 +1,6 @@
 import ampScripts from './ampScripts';
 import ampJson from './ampJson';
+import ampMetas from './ampMetas';
 import { sanitizeMarkup, sanitizeAttrVal, sanitizeCSS, sanitizeJSON } from './sanitize';
 
 function ampExperimentToken(token) {
@@ -12,11 +13,12 @@ export default (body, style, options = {}) =>
 <html amp lang="en">
   <head>
     <meta charset="utf-8">
+    ${ampMetas(options.metas)}
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
-    ${ampScripts(options.scripts)
-    }${ampExperimentToken(options.ampExperimentToken)
-    }<title>${sanitizeMarkup(options.title)}</title>
+    ${ampScripts(options.scripts)}
+    ${ampExperimentToken(options.ampExperimentToken)}
+    <title>${sanitizeMarkup(options.title)}</title>
     <link rel="canonical" href="${sanitizeAttrVal(options.canonicalUrl)}" />
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     ${options.jsonSchema ?
