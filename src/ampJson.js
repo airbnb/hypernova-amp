@@ -1,4 +1,4 @@
-import createElement from './createElement';
+import { createElement } from './createElement';
 
 export default function ampJson(data, component, type) {
   if (!data || !component) return '';

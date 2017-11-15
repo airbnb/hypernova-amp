@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import createElement from '../lib/createElement';
+import { createElement, createElementNoClosingTag } from '../lib/createElement';
 
 describe('createElement', () => {
   it('creates element with no attributes, no children', () => {
@@ -45,6 +45,15 @@ describe('createElement', () => {
     assert.equal(
       createElement('foo', { a: 'bar', b: false, c: false, d: 'baz' }),
       '<foo a="bar" d="baz"></foo>',
+    );
+  });
+});
+
+describe('createElementNoClosingTag', () => {
+  it('creates element with attributes', () => {
+    assert.equal(
+      createElementNoClosingTag('meta', { name: 'foo', content: 'bar' }),
+      '<meta name="foo" content="bar">',
     );
   });
 });
