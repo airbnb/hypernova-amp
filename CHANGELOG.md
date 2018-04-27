@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.0] - 2018-04-27
+
+### Changed
+
+- Add Aphrodite@2.0.0 as a peer dep [#16](https://github.com/airbnb/hypernova-amp/pull/16)
+
 ## [3.1.0] - 2017-07-13
 
 ### Changed
